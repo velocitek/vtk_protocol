@@ -1,0 +1,101 @@
+syntax = 'proto3';
+
+package vtk;
+
+/**
+ * Protobuf definition file for Velocitek VTK file format.
+ *
+ * VTK files contain 0 or more Records where each record is written as:
+ *   - 2 bytes that encode the length of the protobuf encoded Record (unsigned, little endian)
+ *   - n bytes for the Protobuf serialized Record
+ *
+ * See: https://developers.google.com/protocol-buffers/docs/techniques#streaming
+ */
+
+message Record 
+{
+    oneof record 
+    {
+        // We reserve low id numbers for frequent messages...
+        Trackpoint trackpoint = 1;
+        TimerEvent timer_event = 2;
+
+        // Messages with ids 16 and higher will take a bit more space to encode.
+        ButtonEvent button_event = 16;
+        HardwareDescription hardware_description = 17;
+        MagneticDeclination magnetic_declination = 18;
+    };
+}
+
+message Trackpoint
+{
+    uint32 seconds = 1;
+    uint32 centiseconds = 2;
+
+    // Latitude/Longitude are multiplied by 1E7 to 
+    // facilitate storage as integers.
+    sint32 latitudeE7 = 3;
+    sint32 longitudeE7 = 4;
+
+    // Speed over ground in deciknots (kts * 10-1)
+    uint32 sog_knotsE1 = 5;
+
+    // COG in degrees
+    uint32 cog = 6;
+
+    // Components of the quaternion, relative to local magnetic north,
+    // multiplied by 1E3.
+    sint32 q1E3 = 7;
+    sint32 q2E3 = 8;
+    sint32 q3E3 = 9;
+    sint32 q4E3 = 10;
+}
+
+
+message TimerEvent
+{
+    enum TimerEventType 
+    {
+        // The first value must be 0 in protobuf and will be the default if that
+        // field is missing. TIMER_NONE can be used to just update the
+        // seconds without a specific event.
+        TIMER_NONE = 0;
+        TIMER_STARTED = 1;
+        TIMER_STOPPED = 2;
+        TIMER_EXPIRED = 3;
+        TIMER_TICK = 4;
+    }
+    TimerEventType type = 1;
+    int32 seconds = 2;
+}
+
+message ButtonEvent
+{
+    enum ButtonEventType 
+    {
+        BUTTON_NONE = 0;
+        BUTTON_RC = 1;
+        BUTTON_PIN = 2;
+        BUTTON_LINE_CLEARED = 3;
+        BUTTON_MAX = 4;
+    }
+    ButtonEventType type = 1;
+}
+
+message HardwareDescription
+{
+    int32 model_id = 1;
+    int32 hardware_id = 2;
+    int32 firmware_id = 3;
+    int32 serial_number = 4;
+}
+
+message MagneticDeclination
+{
+    // Magnetic Declination measured in degrees. 
+    // This must be added to the measured magnetic heading to get the true
+    // heading.
+    sint32 declination = 1;
+}
+
+

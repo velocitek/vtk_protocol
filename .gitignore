@@ -1,0 +1,50 @@
+# MPLAB 8
+*.mptags
+*.tagsrc
+*.mcs
+*.mcw
+
+# MPLABX files
+*.d
+*.pre
+*.p1
+*.lst
+*.sym
+*.obj
+*.o
+*.sdb
+*.obj.dmp
+**/html/
+**/nbproject/private/
+**/nbproject/Package-*.bash
+**/build/
+**/nbbuild/
+**/dist/
+**/nbdist/
+**/nbactions.xml
+**/nb-configuration.xml
+**/funclist
+**/nbproject/Makefile-*
+**/disassembly/
+*.map
+bin/*.*
+
+# Combined hex files
+combined.X/*.hex
+
+# Vim swp files
+# Ctags
+*.swp
+*.swo
+tags
+
+# Simulation output and command
+*_out.txt
+*_cmd.txt
+
+# Python files
+*.pyc
+*.ycm_extra_conf.py
+
+# MacOS
+.DS_Store
