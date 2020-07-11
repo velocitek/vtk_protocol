@@ -1,7 +1,7 @@
 
 # VTK Protocol
 
-The files in this repository are designed to help you get started with reading data logged with the VTK protocol. The VTK protocol is a binary format used on Velocitek devices starting with the 2020 model of the ProStart.
+The files in this repository are designed to help you get started reading data logged with the VTK protocol. The VTK protocol is a binary format used on Velocitek devices starting with the 2020 model of the ProStart.
 
 ### This repository contains the following files:
 - **SESSION_14.VTK**, a sample vtk file that contains Trackpoint, TimerEvent, ButtonEvent and HardwareDescription type messages.
