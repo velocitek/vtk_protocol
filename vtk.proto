@@ -1,4 +1,4 @@
-syntax = 'proto3';
+syntax = "proto3";
 
 package vtk;
 
@@ -12,9 +12,9 @@ package vtk;
  * See: https://developers.google.com/protocol-buffers/docs/techniques#streaming
  */
 
-message Record 
+message Record
 {
-    oneof record 
+    oneof record
     {
         // We reserve low id numbers for frequent messages...
         Trackpoint trackpoint = 1;
@@ -32,7 +32,7 @@ message Trackpoint
     uint32 seconds = 1;
     uint32 centiseconds = 2;
 
-    // Latitude/Longitude are multiplied by 1E7 to 
+    // Latitude/Longitude are multiplied by 1E7 to
     // facilitate storage as integers.
     sint32 latitudeE7 = 3;
     sint32 longitudeE7 = 4;
@@ -54,7 +54,7 @@ message Trackpoint
 
 message TimerEvent
 {
-    enum TimerEventType 
+    enum TimerEventType
     {
         // The first value must be 0 in protobuf and will be the default if that
         // field is missing. TIMER_NONE can be used to just update the
@@ -71,7 +71,7 @@ message TimerEvent
 
 message ButtonEvent
 {
-    enum ButtonEventType 
+    enum ButtonEventType
     {
         BUTTON_NONE = 0;
         BUTTON_RC = 1;
@@ -92,10 +92,8 @@ message HardwareDescription
 
 message MagneticDeclination
 {
-    // Magnetic Declination measured in degrees. 
+    // Magnetic Declination measured in degrees.
     // This must be added to the measured magnetic heading to get the true
     // heading.
     sint32 declination = 1;
 }
-
-
