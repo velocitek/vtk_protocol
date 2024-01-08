@@ -41,7 +41,7 @@ def main():
 
     if args.output:
         if args.output.lower().endswith('.csv'):
-            with open(args.output, 'w') as csvfile:
+            with open(args.output, 'w', newline='') as csvfile:
                 write_csv(csvfile, points)
 
 
